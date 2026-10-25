@@ -114,9 +114,9 @@ The `role` column is already in `database.sql`. Do not add another table.
 | manager | SOC Manager | Manage users and delete any user's files. |
 | director | SOC Director | Main admin with management access and a protected account. |
 
-1. After completing registration, register your main admin account. Use
-   phpMyAdmin to change only that account's role to `director`. Keep the
-   hashed password from registration. Public registration must still create analysts.
+1. Import `database.sql` to add the Manager and Director test accounts.
+   Their passwords use BCRYPT; see README.md for the login details.
+   Public registration must still create analysts.
 2. Allow Manager and Director to view all users and file metadata, including
    users with no files.
 3. Allow them to grant or remove the Manager role for other Analyst/Manager

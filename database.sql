@@ -30,7 +30,12 @@ CREATE TABLE IF NOT EXISTS `files` (
     FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
--- Complete registration first. Save password hashes, not plain-text passwords.
--- For the role exercise, register your main admin account through the website.
--- In phpMyAdmin, edit that account and change its role to director.
+-- Test accounts. The password values below are generated with PASSWORD_BCRYPT.
+-- Username: manager  | Password: Manager123!
+-- Username: director | Password: Director123!
+-- Existing usernames or emails are skipped when this file is imported again.
+INSERT IGNORE INTO `users` (`username`, `email`, `password`, `role`) VALUES
+    ('manager', 'manager@wazfuli.test', '$2y$10$auaVTJyTPuLWQOv4nXHky.wP9SCyor0JnKRzcNypMFxRYJwgN8ywa', 'manager'),
+    ('director', 'director@wazfuli.test', '$2y$10$p4CKq0SaQNfr2ovV1N13sOcqsr25ANlbWucIw9MqsaHjVxc17CvZK', 'director');
+
 -- New accounts from the registration form must always have the analyst role.

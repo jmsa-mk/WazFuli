@@ -27,9 +27,16 @@ Edit the menu and logout form there once. Role conditions and the logout
 CSRF token are still your tasks. Prepare the
 session and check login in each page before any HTML is shown.
 
-For the role exercise, complete registration first. Register your main admin account,
-then use phpMyAdmin to change that account's `role` to `director`.
-Other new accounts must start as `analyst`.
+Importing `database.sql` also adds these accounts for local testing:
+
+| Username | Password | Role |
+| --- | --- | --- |
+| manager | Manager123! | SOC Manager |
+| director | Director123! | SOC Director |
+
+Their passwords are stored as BCRYPT hashes. Complete the login task to use them.
+Existing usernames or emails are skipped on import; their passwords and roles
+are not changed. New accounts from registration must start as `analyst`.
 
 *(Read the comments starting with `//` inside each PHP file for step-by-step
 instructions. See [SOAL.md](SOAL.md) for the full tasks.)*
