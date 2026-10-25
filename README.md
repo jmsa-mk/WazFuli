@@ -22,6 +22,11 @@ Before you write any PHP logic, complete these preparation steps:
 The frontend is provided with sample data. Your task is to complete registration,
 login, sessions, file management, and role checks. Keep the existing folder structure.
 
+The workspace pages already include `pages/header.php` for shared navigation.
+Edit the menu and logout form there once. Role conditions and the logout
+CSRF token are still your tasks. Prepare the
+session and check login in each page before any HTML is shown.
+
 For the role exercise, complete registration first. Register your main admin account,
 then use phpMyAdmin to change that account's `role` to `director`.
 Other new accounts must start as `analyst`.

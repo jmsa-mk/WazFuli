@@ -11,6 +11,10 @@ The pages are ready, but the backend is empty. Complete the numbered comments
 in the PHP files. Do not change the folder structure or add a framework.
 Use only the provided `users` and `files` tables.
 
+Shared navigation is provided in `pages/header.php` and is already included in
+the workspace pages. Complete its role condition and logout CSRF field once.
+Start the session and check access in each page before any HTML or the header.
+
 Keep the existing form field names so the pages and actions work together.
 Validate input on the server, use PDO prepared statements for user input, and
 escape text with `htmlspecialchars` when displaying it in HTML.

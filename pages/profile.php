@@ -6,7 +6,9 @@
 // 2. Replace the sample username, email, and role with the current account details.
 // 3. Read the account using the session user ID, not an ID sent in the URL.
 // 4. Use htmlspecialchars when displaying account details.
-// 5. Show management links only for a manager or director. Add a CSRF token to logout.
+// 5. Prepare the session CSRF token before HTML. Complete role checks and logout in header.php.
+
+// Shared navigation is in header.php. Prepare login, role, and CSRF data before HTML.
 
 // TODO: Write your PHP code here.
 
@@ -24,33 +26,7 @@
     <script src="../assets/script.js" defer></script>
 </head>
 <body class="min-h-screen bg-slate-950 font-sans text-slate-200 antialiased selection:bg-emerald-300 selection:text-slate-950">
-    <header class="border-b border-slate-800/80 bg-slate-950">
-        <div class="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-5 px-6 py-5">
-            <a href="index.php" class="inline-flex items-center gap-3 text-2xl font-semibold tracking-tight text-white">
-                <span class="flex h-10 w-10 items-center justify-center rounded-xl border border-emerald-400/25 bg-emerald-400/10 text-emerald-300">
-                    <svg class="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
-                        <path d="m12 3-8 3v6c0 4 8 9 8 9s8-5 8-9V6z" />
-                        <path d="m8 12 3 3 5-6" />
-                    </svg>
-                </span>
-                WazFuli<span class="-ml-3 text-emerald-300">.</span>
-            </a>
-            <nav class="flex flex-wrap items-center gap-1 text-xs" aria-label="Main navigation">
-                <a href="index.php" class="rounded-lg px-4 py-2 transition text-slate-400 hover:bg-slate-800 hover:text-white">Dashboard</a>
-                <a href="list.php" class="rounded-lg px-4 py-2 transition text-slate-400 hover:bg-slate-800 hover:text-white">Evidence</a>
-                <a href="upload.php" class="rounded-lg px-4 py-2 transition text-slate-400 hover:bg-slate-800 hover:text-white">Upload</a>
-                <a href="profile.php" class="rounded-lg px-4 py-2 transition bg-emerald-400/10 text-emerald-300" aria-current="page">Profile</a>
-                <!-- TODO: Show these links only for SOC Manager or SOC Director. -->
-                <a href="users.php" class="rounded-lg px-4 py-2 text-emerald-300 hover:bg-emerald-400/10">Users</a>
-                <a href="manageFiles.php" class="rounded-lg px-4 py-2 text-emerald-300 hover:bg-emerald-400/10">Manage files</a>
-                <form action="../actions/doLogout.php" method="POST" class="ml-2">
-                    <!-- TODO: Fill this value with the session CSRF token and check it in the action. -->
-                    <input type="hidden" name="csrf_token" value="">
-                    <button type="submit" class="rounded-lg border border-slate-700 px-4 py-2 text-slate-400 transition hover:border-slate-500 hover:text-white">Logout</button>
-                </form>
-            </nav>
-        </div>
-    </header>
+    <?php require_once __DIR__ . '/header.php'; ?>
     <main class="mx-auto max-w-6xl px-6 py-9 md:py-12">
         <p class="mb-6 text-[10px] tracking-widest text-amber-300">PRACTICE TEMPLATE / SAMPLE DATA</p>
         <!-- TASK: Show session messages once and escape their text. -->
