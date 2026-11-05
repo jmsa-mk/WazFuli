@@ -11,10 +11,13 @@ CREATE TABLE IF NOT EXISTS `users` (
     `email` varchar(100) NOT NULL,
     `password` varchar(255) NOT NULL,
     `role` enum('analyst', 'manager', 'director') NOT NULL DEFAULT 'analyst',
+    `remember_token_hash` char(64) DEFAULT NULL,
+    `remember_expires_at` datetime DEFAULT NULL,
     `created_at` timestamp DEFAULT CURRENT_TIMESTAMP,
     PRIMARY KEY (`id`),
     UNIQUE KEY `username` (`username`),
-    UNIQUE KEY `email` (`email`)
+    UNIQUE KEY `email` (`email`),
+    UNIQUE KEY `remember_token_hash` (`remember_token_hash`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- TASK 2 AND 3: Each file belongs to one user through user_id.

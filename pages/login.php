@@ -2,11 +2,15 @@
 
 // TASK 1 - LOGIN PAGE
 // Your mission in this file:
-// 1. Start a session. If the user is already logged in, send them to index.php.
-// 2. Read the saved username cookie, if it exists. Do not use it as proof of login.
-// 3. Fill the username field and checkbox from that cookie.
-// 4. Prepare a CSRF token. Show session messages once, then remove them.
-// 5. Use htmlspecialchars for messages and form values. Keep the form action pointing to ../actions/doLogin.php.
+// 1. Start a session. If the user is logged in, redirect to index.php and exit.
+// 2. If a remember_me cookie exists, hash its value with SHA-256.
+// 3. Use a PDO prepared statement to find the user with that hash and a future remember_expires_at.
+// 4. If it matches, create a fresh token. Save its SHA-256 hash in the database and its value in the cookie.
+//    Keep the original expiry date.
+//    Regenerate the session ID, save the user's ID, username, email, and role, then redirect to index.php.
+// 5. If the token is invalid or expired, clear the cookie and show the login form.
+// 6. Add a CSRF token to the form. Escape session messages with htmlspecialchars and show them once.
+// The form reads rememberUser to fill in the username. Only remember_me can restore a login.
 
 // TODO: Write your PHP code here.
 
@@ -64,13 +68,16 @@
                     Your success message goes here.
                 </div>
 
-                <!-- TASK 1: Complete the registration handler for this POST form. -->
+                <!-- TASK 1: Handle this form in ../actions/doLogin.php. -->
                 <form action="../actions/doLogin.php" method="POST" class="space-y-5">
                     <!-- TODO: Fill this value with the session CSRF token and check it in the action. -->
                     <input type="hidden" name="csrf_token" value="">
                     <div>
                         <label for="username" class="mb-2 block text-xs text-slate-300">Username</label>
-                        <input type="text" id="username" name="username" value="" autocomplete="username" placeholder="Enter your username" maxlength="50" required class="w-full rounded-lg border border-slate-700 bg-slate-900/50 px-4 py-3 text-sm outline-none placeholder:text-slate-600 focus:border-emerald-400">
+                        <input type="text" id="username" name="username"
+                               value="<?= htmlspecialchars($_COOKIE['rememberUser'] ?? '', ENT_QUOTES, 'UTF-8') ?>"
+                               autocomplete="username" placeholder="Enter your username" maxlength="50" required
+                               class="w-full rounded-lg border border-slate-700 bg-slate-900/50 px-4 py-3 text-sm outline-none placeholder:text-slate-600 focus:border-emerald-400">
                     </div>
 
                     <div>
@@ -84,6 +91,10 @@
                     <label class="flex cursor-pointer items-center gap-2 text-xs text-slate-400">
                         <input type="checkbox" name="remember_username" value="1" class="h-3.5 w-3.5 accent-emerald-300">
                         Remember my username
+                    </label>
+                    <label class="flex cursor-pointer items-center gap-2 text-xs text-slate-400">
+                        <input type="checkbox" name="remember_me" value="1" class="h-3.5 w-3.5 accent-emerald-300">
+                        Stay logged in for 7 days
                     </label>
                     <button type="submit" class="w-full rounded-lg bg-emerald-300 px-5 py-3.5 text-xs font-semibold text-slate-950 transition hover:bg-emerald-200">Sign in to WazFuli &rarr;</button>
                 </form>
